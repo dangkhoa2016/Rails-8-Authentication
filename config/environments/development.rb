@@ -1,5 +1,8 @@
 require "active_support/core_ext/integer/time"
 
+default_url_options = { host: ENV.fetch("HOST", "localhost"), port: ENV.fetch("PORT", 3000) }
+Rails.application.default_url_options = default_url_options
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -38,7 +41,8 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # Set localhost to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  # config.default_url_options = default_url_options
+  config.action_mailer.default_url_options = default_url_options
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

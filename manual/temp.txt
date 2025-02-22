@@ -6,7 +6,7 @@ useful rails core urls
 /rails/info
 /rails/info/notes
 
---
+----
 
 bundle add dotenv-rails --group "development, test"
 
@@ -60,3 +60,6 @@ Rails. application. credentials. config
 Rails. application. credentials. key
 => "zzz"
 
+----
+
+rails generate controller Home index
