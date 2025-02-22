@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     get page, to: "static_pages##{page}", as: page
   end
 
+  devise_for :users
+
   get "search" => "search#index"
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

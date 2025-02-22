@@ -14,7 +14,7 @@
         <% end %>
       </ul>
 
-      <div class='d-flex flex-wrap justify-content-center'>
+      <div class='justify-content-lg-end w-50 d-flex flex-wrap justify-content-center'>
         <form class="col-12 col-lg-auto mb-2 mb-lg-0"
           role="search" method="get"
           action='<%= search_path %>'>
@@ -23,10 +23,12 @@
             placeholder="Search..." aria-label="Search" />
         </form>
 
-        <div class="text-end ms-lg-3">
-          <button type="button" class="btn btn-outline-info me-2">Login</button>
-          <button type="button" class="btn btn-warning">Sign-up</button>
-        </div>
+        <% if !devise_controller? %>
+          <div class="text-end ms-lg-3">
+            <%= link_to 'Login', new_user_session_path, class: "btn btn-outline-info me-2" %>
+            <%= link_to 'Sign-up', new_user_registration_path, class: "btn btn-warning" %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
