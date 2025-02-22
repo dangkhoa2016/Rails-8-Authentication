@@ -68,7 +68,16 @@ rails generate controller StaticPages about contact faqs features
 
 rails generate controller Search index
 
+--
+
 ./bin/rails javascript:install:esbuild
 ./bin/rails javascript:install:bun
 
+
 bin/rails stimulus:manifest:update
+
+--
+
+rails generate devise users
+rails generate devise:views
+rails generate devise:controllers users
