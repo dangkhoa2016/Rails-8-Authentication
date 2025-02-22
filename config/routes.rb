@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get "home/index"
 
+  devise_for :users
+
   resources :static_pages, only: [] do
     collection do
       get :about
