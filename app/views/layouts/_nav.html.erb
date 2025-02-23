@@ -32,7 +32,9 @@
             placeholder="Search..." aria-label="Search" />
         </form>
 
-        <% if !devise_controller? %>
+        <% if signed_in? %>
+          <%= render 'devise/shared/signed_in' %>
+        <% elsif !devise_controller? %>
           <div class="text-end ms-lg-3">
             <%= link_to 'Login', new_user_session_path, class: "btn btn-outline-info me-2" %>
             <%= link_to 'Sign-up', new_user_registration_path, class: "btn btn-warning" %>
