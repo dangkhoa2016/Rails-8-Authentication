@@ -3,6 +3,8 @@
 # your test database is "scratch space" for the test suite and is wiped
 # and recreated between test runs. Don't rely on the data there!
 
+default_url_options = { host: ENV.fetch("HOST", "localhost"), port: ENV.fetch("PORT", 3000) }
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -39,7 +41,7 @@ Rails.application.configure do
   # Set localhost to be used by links generated in mailer templates.
   # config.default_url_options = default_url_options
   config.action_mailer.default_url_options = default_url_options
-  config.hosts << "#{ENV.fetch("HOST", "localhost")}:#{ENV.fetch("PORT", 3000)}"
+  config.hosts << "#{default_url_options[:host]}:#{default_url_options[:port]}"
   config.hosts << "www.example.com"
 
   # Print deprecation notices to the stderr.

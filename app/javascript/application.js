@@ -2,3 +2,26 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import * as bootstrap from "bootstrap"
+
+function initTheme() {
+  const attributeName = 'data-bs-theme';
+
+  const getPreferredTheme = () => {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  };
+
+  const setTheme = theme => {
+    if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.setAttribute(attributeName, 'dark')
+    } else {
+      document.documentElement.setAttribute(attributeName, theme)
+    }
+
+    const event = new Event('ColorSchemeChange')
+    document.documentElement.dispatchEvent(event)
+  };
+
+  setTheme(getPreferredTheme());
+};
+
+initTheme();
