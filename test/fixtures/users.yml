@@ -27,3 +27,10 @@ admin:
   role: 'admin'
   confirmed_at: <%= Time.now %>
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+invalid_email_user:
+  first_name: 'Invalid'
+  email: 'invalid_email'
+  username: 'invalid_email_user'
+  confirmed_at: <%= Time.now %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>

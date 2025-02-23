@@ -1,43 +1,146 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<%= render 'devise/shared/layout' do %>
+  <div class="order-2 col-lg-6 col-md-12">
+    <%= image_tag('update-profile.svg',
+      alt: 'Edit your account',
+      class: 'img-fluid') %>
   </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+  <div class="order-1 col-lg-6 col-md-12 d-flex flex-row align-items-center">
+    <div class="card-body p-md-5">
+      <h3 class="mb-5 text-uppercase fs-4">Edit your account</h3>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
+      <%= form_tag(registration_path(resource_name), method: :put) do |f| %>
+        
+        <div class="form-floating mb-3">
+          <%= text_field_tag "#{resource_name}[username]", resource.username,
+            class: "form-control#{' is-invalid' if resource.errors[:username].any?}",
+            placeholder: 'Username' %>
+          <%= label_tag :username, 'Username' %>
+          <% if resource.errors[:username].any? %>
+            <div class="text-danger">
+              <%= resource.errors[:username].join(", ") %>
+            </div>
+          <% end %>
+        </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              <%= text_field_tag "#{resource_name}[first_name]", resource.first_name,
+                class: "form-control#{' is-invalid' if resource.errors[:first_name].any?}",
+                placeholder: 'First name' %>
+              <%= label_tag "#{resource_name}[first_name]", 'First name' %>
+              <% if resource.errors[:first_name].any? %>
+                <div class="text-danger">
+                  <%= resource.errors[:first_name].join(", ") %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              <%= text_field_tag "#{resource_name}[last_name]", resource.last_name,
+                class: "form-control",
+                placeholder: 'Last name' %>
+              <%= label_tag "#{resource_name}[last_name]", 'Last name' %>
+            </div>
+          </div>
+        </div>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
+        <div class="form-floating mb-3">
+          <%= date_field_tag "#{resource_name}[date_of_birth]", resource.date_of_birth&.strftime('%Y-%m-%d'),
+            class: "form-control#{' is-invalid' if resource.errors[:date_of_birth].any?}",
+            placeholder: 'Date of birth' %>
+          <%= label_tag :date_of_birth, 'Date of birth' %>
+          <% if resource.errors[:date_of_birth].any? %>
+            <div class="text-danger">
+              <%= resource.errors[:date_of_birth].join(", ") %>
+            </div>
+          <% end %>
+        </div>
 
-  <div class="actions">
-    <%= f.submit "Update" %>
+        <div class="form-floating mb-3">
+          <%= email_field_tag "#{resource_name}[email]", resource.email,
+            class: "form-control#{' is-invalid' if resource.errors[:email].any?}",
+            placeholder: 'Email address' %>
+          <%= label_tag "#{resource_name}[email]", 'Email address' %>
+          <% if resource.errors[:email].any? %>
+            <div class="text-danger">
+              <%= resource.errors[:email].join(", ") %>
+            </div>
+          <% end %>
+        </div>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div class="text-muted">
+            Currently waiting confirmation for: <strong><%= resource.unconfirmed_email %></strong>
+          </div>
+        <% end %>
+
+        <% if @minimum_password_length %>
+          <p class='text-muted mb-1'>Minimum <%=@minimum_password_length %> characters</p>
+          <p class='text-muted mb-1'>(leave blank if you don't want to change it)</p>
+        <% end %>
+        <div class="form-floating mb-3">
+          <%= password_field_tag "#{resource_name}[password]", nil,
+            class: "form-control#{' is-invalid' if resource.errors[:password].any?}",
+            placeholder: 'New password' %>
+          <%= label_tag :password, 'New password' %>
+          <% if resource.errors[:password].any? %>
+            <div class="text-danger">
+              <%= resource.errors[:password].join(", ") %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="form-floating mb-3">
+          <%= password_field_tag "#{resource_name}[password_confirmation]", nil,
+            class: "form-control#{' is-invalid' if resource.errors[:password_confirmation].any?}",
+            placeholder: 'Password confirmation' %>
+          <%= label_tag :password_confirmation, 'Password confirmation' %>
+          <% if resource.errors[:password_confirmation].any? %>
+            <div class="text-danger">
+              <%= resource.errors[:password_confirmation].join(", ") %>
+            </div>
+          <% end %>
+        </div>
+
+        <hr />
+
+        <p class='text-muted mb-1'>We need your current password to confirm your changes</p>
+        <div class="form-floating mb-3">
+          <%= password_field_tag "#{resource_name}[current_password]", nil,
+            class: "form-control#{' is-invalid' if resource.errors[:current_password].any?}",
+            placeholder: 'Current password' %>
+          <%= label_tag :current_password, 'Current password' %>
+          <% if resource.errors[:current_password].any? %>
+            <div class="text-danger">
+              <%= resource.errors[:current_password].join(", ") %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="d-flex justify-content-end pt-3">
+          <%= button_tag type: 'reset', class: 'btn btn-light btn-lg' do %>
+            Reset all
+          <% end %>
+          <%= button_tag type: 'submit', class: 'btn btn-warning btn-lg ms-2' do %>
+            Update Account
+          <% end %>
+        </div>
+      <% end %>
+
+      <%= render "devise/shared/links" %>
+
+      <hr />
+
+      <div>
+        <p class='text-muted mb-2'>Unhappy?</p>
+        <%= button_to "Cancel my account", registration_path(resource_name),
+        data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?", turbo_method: :delete },
+        method: :delete, class: 'btn btn-danger btn-lg' %>
+      </div>
+
+    </div>
   </div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>

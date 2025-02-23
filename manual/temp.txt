@@ -68,6 +68,7 @@ rails generate controller StaticPages about contact faqs features
 
 rails generate controller Search index
 
+rails generate controller Users/Settings index
 --
 
 ./bin/rails javascript:install:esbuild

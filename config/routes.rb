@@ -7,7 +7,19 @@ Rails.application.routes.draw do
     get page, to: "static_pages##{page}", as: page
   end
 
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: "users/sessions",
+    registrations: "users/registrations",
+    passwords: "users/passwords"
+  }
+
+  devise_scope :user do
+    %w[profile me whoami].each do |route|
+      get "user/#{route}", to: "users/registrations#show"
+    end
+
+    get "user/settings", to: "users/settings#index"
+  end
 
   get "search" => "search#index"
 
