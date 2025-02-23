@@ -3,16 +3,24 @@ Rails.application.routes.draw do
 
   get "home/index"
 
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: "users/sessions",
+    registrations: "users/registrations",
+    passwords: "users/passwords",
+  }
 
-  resources :static_pages, only: [] do
-    collection do
-      get :about
-      get :contact
-      get :faqs
-      get :features
+  devise_scope :user do
+    %w(profile me whoami).each do |route|
+      get "user/#{route}", to: 'users/registrations#show'
     end
+
+    get "user/settings", to: 'users/settings#index'
   end
+
+  get 'about' => "static_pages#about"
+  get 'contact' => "static_pages#contact"
+  get 'faqs' => "static_pages#faqs"
+  get 'features' => "static_pages#features"
 
   get "search" => "search#index"
 
