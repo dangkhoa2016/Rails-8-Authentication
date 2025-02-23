@@ -1,0 +1,19 @@
+<div class="dropdown text-end ms-3">
+  <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    <%= image_tag('avatar.png', alt: 'avatar', class: 'rounded-circle', width: '32', height: '32') %>
+  </a>
+  <ul class="dropdown-menu text-small" style="">
+    <li>
+      <%= link_to 'Settings', user_settings_path, class: 'dropdown-item' %>
+    </li>
+    <li><hr class="dropdown-divider"></li>
+    <li>
+      <%= link_to 'Profile', user_profile_path, class: 'dropdown-item' %>
+    </li>
+    <li><hr class="dropdown-divider"></li>
+    <li>
+      <%= link_to 'Sign out', destroy_user_session_path, method: :delete,
+        class: 'dropdown-item', data: { confirm: 'Are you sure?', turbo_confirm: 'Are you sure?', turbo_method: :delete } %>
+    </li>
+  </ul>
+</div>
