@@ -3,13 +3,8 @@ Rails.application.routes.draw do
 
   get "home/index"
 
-  resources :static_pages, only: [] do
-    collection do
-      get :about
-      get :contact
-      get :faqs
-      get :features
-    end
+  %w[about contact faqs features].each do |page|
+    get page, to: "static_pages##{page}", as: page
   end
 
   get "search" => "search#index"

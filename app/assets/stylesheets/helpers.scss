@@ -1,0 +1,43 @@
+
+// Import Bootstrap's variables and mixins, comment 3 below lines of already use `@import "bootstrap/scss/bootstrap";`
+// @import "bootstrap/scss/functions";
+// @import "bootstrap/scss/variables";
+// @import "bootstrap/scss/utilities";
+
+
+// Define your custom max-width values
+$custom-max-widths: (50, 75, 90, 100);
+
+// Generate max-width utility classes for each breakpoint and custom width
+@each $width in $custom-max-widths {
+  @if $width != 100 {
+    .max-w-#{$width} {
+      max-width: percentage(calc($width / 100)) !important;
+    }
+    .min-w-#{$width} {
+      min-width: percentage(calc($width / 100)) !important;
+    }
+  }
+}
+
+// Generate max-width utility classes for each breakpoint and custom width within @media queries
+@each $breakpoint in map-keys($grid-breakpoints) {
+  $min-width: map-get($grid-breakpoints, $breakpoint);
+  $min-width: if($min-width, $min-width, 0); // Use 0 if $min-width is not defined
+
+  @if $min-width > 0 {
+    @media (min-width: $min-width) {
+      @each $width in $custom-max-widths {
+        .max-w-#{$breakpoint}-#{$width} {
+          max-width: percentage(calc($width / 100)) !important;
+        }
+        .min-w-#{$breakpoint}-#{$width} {
+          min-width: percentage(calc($width / 100)) !important;
+        }
+        .w-#{$breakpoint}-#{$width} {
+          width: percentage(calc($width / 100)) !important;
+        }
+      }
+    }
+  }
+}
