@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources 'admin/users', controller: 'users', as: 'admin_users'
+
   get "search" => "search#index"
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

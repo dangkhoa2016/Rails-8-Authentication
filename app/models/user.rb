@@ -20,6 +20,9 @@ class User < ApplicationRecord
     [ first_name, last_name ].join(" ")
   end
 
+  def super_user?
+    role == "admin" && email == ENV["ADMIN_EMAIL"]
+  end
 
   private
 
