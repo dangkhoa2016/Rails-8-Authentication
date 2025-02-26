@@ -122,7 +122,7 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test "count of users should be 4" do
-    assert_equal 4, User.count
+  test "count of users should be 5" do
+    assert_equal 5, User.count
   end
 end

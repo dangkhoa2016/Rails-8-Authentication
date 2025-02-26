@@ -1,0 +1,23 @@
+<h1>Users Management</h1>
+
+<%= link_to('New User', new_user_path) if current_user.super_admin? %>
+
+<div data-controller='live-search'
+  data-live-search-items-selector-value='.row > .col'
+  data-live-search-item-to-filter-value='.card-body > .card-title, .card-body > .card-text'>
+  <%= render 'filter' %>
+
+  <div data-search-status='true' class=''>
+    <p>Showing <span data-search-count='true'>0</span> of <span data-total-count='true'><%= User.count %></span> users</p>
+  </div>
+
+  <div data-root='true' class="row d-none my-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+    <%= render @users %>
+  </div>
+
+  <div class='alert alert-info d-none no-results'>
+    No results found.
+  </div>
+</div>
+
+<%= link_to('New User', new_user_path, class: 'btn btn-primary') if current_user.super_admin? %>

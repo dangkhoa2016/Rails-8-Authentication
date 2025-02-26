@@ -1,0 +1,97 @@
+<% url = @user.new_record? ? create_users_path : user_path(@user) %>
+
+<%= form_for(@user, url: url, html: { class: 'needs-validation mt-4', novalidate: true }) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul class="mb-0">
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <%= f.label :first_name, class: 'form-label' %>
+      <%= f.text_field :first_name, class: "form-control#{' is-invalid' if @user.errors[:first_name].any?}",
+        required: true %>
+      <% if @user.errors[:first_name].any? %>
+        <div class="invalid-feedback">
+          <%= @user.errors[:first_name].to_sentence %>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-md-6 mb-3">
+      <%= f.label :last_name, class: 'form-label' %>
+      <%= f.text_field :last_name, class: 'form-control', required: true %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <%= f.label :username, class: 'form-label' %>
+      <%= f.text_field :username, class: "form-control#{' is-invalid' if @user.errors[:username].any?}",
+        required: true %>
+      <% if @user.errors[:username].any? %>
+        <div class="invalid-feedback">
+          <%= @user.errors[:username].to_sentence %>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-md-6 mb-3">
+      <%= f.label :role, class: 'form-label' %>
+      <%= f.select :role, roles_for_select, {}, class: 'form-select' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <%= f.label :date_of_birth, class: 'form-label' %>
+      <%= f.date_field :date_of_birth, class: 'form-control' %>
+    </div>
+    <div class="col-md-6 mb-1">
+      <label class="form-label d-none d-md-block">&nbsp;</label>
+      <div>
+        <%= check_box_tag "user[allow_login]", 1,
+          params.dig('user').blank? || params.dig('user', 'allow_login'),
+          class: 'form-check-input' %>
+        <%= label_tag "user[allow_login]", class: 'form-label' do %>
+          Allow Login
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <%= f.label :email, class: 'form-label' %>
+      <%= f.email_field :email, class: "form-control#{' is-invalid' if @user.errors[:email].any?}",
+        required: true %>
+      <% if @user.errors[:email].any? %>
+        <div class="invalid-feedback">
+          <%= @user.errors[:email].to_sentence %>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-md-6 mb-3">
+      <%= f.label :password, class: 'form-label' %>
+      <%= f.password_field :password, class: "form-control#{' is-invalid' if @user.errors[:password].any?}",
+        required: @user.new_record? %>
+      <% if @user.errors[:password].any? %>
+        <div class="invalid-feedback">
+          <%= @user.errors[:password].to_sentence %>
+        </div>
+      <% end %>
+      <% if @user.persisted? %>
+        <p class='form-text'>Leave blank if you don't want to change it.</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= f.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>

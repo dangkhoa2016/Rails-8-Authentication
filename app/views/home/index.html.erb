@@ -1,2 +1,6 @@
 <h1>Rails 8 Authentication</h1>
 <p>Welcome to the Rails 8 Authentication application.</p>
+
+<% if signed_in? && current_user.admin? %>
+  <%= render 'home/dashboard' %>
+<% end %>

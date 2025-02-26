@@ -50,9 +50,9 @@ Rails. application. secret_key_base
 
 
 Rails. application. credentials. content_path
-=> #<Pathname:/config/credentials.yml.enc> 
+=> #<Pathname:/config/credentials.yml.enc>
 Rails. application. credentials. key_path
-=> #<Pathname:/config/master.key> 
+=> #<Pathname:/config/master.key>
 
 Rails. application. credentials. config
 { :secret_key_base=> "zzz" }
@@ -69,6 +69,9 @@ rails generate controller StaticPages about contact faqs features
 rails generate controller Search index
 
 rails generate controller Users/Settings index
+rails generate controller Users index create new edit update destroy
+
+rails generate migration AddUserFieldIndexes
 --
 
 ./bin/rails javascript:install:esbuild

@@ -1,0 +1,24 @@
+<div class="col">
+  <div class="card">
+    <%= image_tag("profile#{rand(1..2)}.png", alt: user.full_name, class: 'card-img-top') %>
+    <div class="card-body">
+      <h5 class="card-title"><%= user.full_name %></h5>
+      <p class="card-text small"><%= user.email %></p>
+      <p class="card-text" data-role="<%= user.role %>"
+        title="username is <%= user.username %> and role is <%= user.role.titleize %>">
+        <label class="badge <%= user.admin? ? 'text-bg-info' : 'text-bg-warning' %>">
+          <%= user.username %>
+        </label>
+      </p>
+    </div>
+    <div class="card-footer justify-content-between d-flex">
+      <%= link_to 'View', user_path(user), class: 'btn btn-sm btn-primary' %>
+      <% if current_user.super_admin? %>
+        <%= link_to 'Delete', user_path(user), method: :delete,
+          data: { confirm: 'Are you sure?', turbo_confirm: 'Are you sure?', turbo_method: :delete },
+          class: 'btn btn-sm btn-danger' %>
+        <%= link_to 'Edit', edit_user_path(user), class: 'btn btn-sm btn-secondary' %>
+      <% end %>
+    </div>
+  </div>
+</div>

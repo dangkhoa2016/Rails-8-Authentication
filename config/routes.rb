@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     sessions: "users/sessions",
     registrations: "users/registrations",
-    passwords: "users/passwords"
+    passwords: "users/passwords",
+    confirmations: "users/confirmations"
   }
 
   devise_scope :user do
@@ -19,6 +20,12 @@ Rails.application.routes.draw do
     end
 
     get "user/settings", to: "users/settings#index"
+  end
+
+  resources :users, only: [ :index, :new, :edit, :update, :show, :destroy ], constraints: { id: /\d+/ } do
+    collection do
+      post "/create" => "users#create"
+    end
   end
 
   get "search" => "search#index"

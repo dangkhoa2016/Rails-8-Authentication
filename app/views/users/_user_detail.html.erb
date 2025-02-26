@@ -1,0 +1,142 @@
+
+<div class="row mt-4">
+  <div class="col-lg-4">
+    <div class="card mb-4">
+      <div class="card-body text-center">
+        <%= image_tag("profile#{rand(1..2)}.png", alt: user.full_name, class: 'bg-secondary rounded img-fluid user-avatar') %>
+        <h5 class="mt-3 mb-1"><%= user.full_name %></h5>
+        <p class="text-muted mb-3">@<%= user.username %></p>
+        <%# <p class="text-muted mb-4">user.role.titleize</p> %>
+
+        <div class="d-flex justify-content-center mb-2">
+          <%
+            url = if devise_controller?
+                    edit_user_registration_path
+                  elsif current_user.super_admin?
+                    edit_user_path(user)
+                  end
+          %>
+          <% if url %>
+            <%= link_to 'Edit', url, class: "btn btn-primary" %>
+            <button type="button" class="btn btn-outline-primary ms-1">Change avatar</button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-8">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">First Name</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0"><%= user.first_name %></p>
+          </div>
+        </div>
+        <hr>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Last Name</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0"><%= user.last_name %></p>
+          </div>
+        </div>
+        <hr>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Email</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0"><%= user.email %></p>
+          </div>
+        </div>
+        <hr>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Username</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0"><%= user.username %></p>
+          </div>
+        </div>
+        <hr>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Birthday</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0"><%= user.date_of_birth&.strftime('%B %d, %Y') %></p>
+          </div>
+        </div>
+        <hr>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Role</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0"><%= user.role.titleize %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if flash[:notice].blank? && User.devise_modules.include?(:confirmable) && user.pending_reconfirmation? %>
+  <div class="alert alert-info" role="alert">
+    <% if user.id == current_user.id %>
+      <p>
+        You have an unconfirmed email address: <strong><%= user.unconfirmed_email %></strong>,
+        please check your email to confirm your email address.
+      </p>
+      <p>
+        If you didn't receive the email, you can <%= link_to 'request another confirmation email', user_confirmation_path(id: SimpleEncryptor.encrypt(user.id)) %> for yourself.
+      </p>
+    <% else %>
+      <p>
+        This user has an unconfirmed email address: <strong><%= user.unconfirmed_email %></strong>,
+        please ask him/her to check his/her email to confirm the email address.
+      </p>
+      <p>
+        If he/she didn't receive the email, you can <%= link_to 'request another confirmation email', user_confirmation_path(id: SimpleEncryptor.encrypt(user.id)) %> for him/her.
+      </p>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="card mb-5">
+  <div class="card-body p-4">
+    <h4 class="mb-3">Account information</h3>
+    <p class="small mb-0"><i class="bi bi-calendar"></i>  Created on <%= user.created_at.strftime('%B %d, %Y') %></p>
+
+    <hr class="my-4">
+
+    <div class='row'>
+      <div class='col-md-6'>
+        <div class="alert alert-primary" role="alert">
+          Last sign in time: <%= user.last_sign_in_at ? time_ago_in_words(user.last_sign_in_at) + ' ago' : 'Never' %>
+        </div>
+        <div class="alert alert-primary" role="alert">
+          Current sign in time: <%= user.current_sign_in_at ? time_ago_in_words(user.current_sign_in_at) + ' ago' : 'Never' %>
+        </div>
+      </div>
+      <div class='col-md-6'>
+        <div class="alert alert-warning" role="alert">
+          Last sign in IP: <%= user.last_sign_in_ip || 'Never' %>
+        </div>
+        <div class="alert alert-<%= user.current_sign_in_ip != user.last_sign_in_ip ? 'danger' : 'warning' %>" role="alert">
+          Current sign in IP: <%= user.current_sign_in_ip || 'Never' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
