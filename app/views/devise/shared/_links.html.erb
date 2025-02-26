@@ -2,7 +2,11 @@
 
   <% if signed_in? %>
     <%- if devise_mapping.registerable? && controller_name != 'registrations' && action_name != 'edit' %>
-      <%= link_to "Edit account", edit_registration_path(resource_name) %><br />
+      <% if @decrypted_user_id.present? && current_user.super_admin? %>
+        <%= link_to "Edit user", edit_user_path(@decrypted_user_id) %><br />
+      <% else %>
+        <%= link_to "Edit account", edit_registration_path(resource_name) %><br />
+      <% end %>
     <% end %>
     
     <%- if devise_mapping.registerable? && controller_name == 'registrations' && action_name == 'edit' %>

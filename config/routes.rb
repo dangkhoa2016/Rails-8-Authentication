@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     sessions: "users/sessions",
     registrations: "users/registrations",
     passwords: "users/passwords",
+    confirmations: "users/confirmations",
   }
 
   devise_scope :user do
@@ -21,6 +22,12 @@ Rails.application.routes.draw do
   get 'contact' => "static_pages#contact"
   get 'faqs' => "static_pages#faqs"
   get 'features' => "static_pages#features"
+
+  resources :users, only: [ :index, :new, :edit, :update, :show, :destroy ], constraints: { id: /\d+/ } do
+    collection do
+      post "/create" => "users#create"
+    end
+  end
 
   get "search" => "search#index"
 

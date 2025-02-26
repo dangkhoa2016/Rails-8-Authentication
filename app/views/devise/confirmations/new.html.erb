@@ -10,9 +10,12 @@
       <h3 class="mb-5 text-uppercase fs-4">Resend confirmation instructions</h3>
 
       <%= form_tag(confirmation_path(resource_name), method: :post) do |f| %>
+        <%
+          user_email = resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email
+          user_email = @user_email if user_email.blank?
+        %>
         <div class="form-floating mb-3">
-          <%= email_field_tag "#{resource_name}[email]",
-            resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email,
+          <%= email_field_tag "#{resource_name}[email]", user_email,
             class: "form-control#{' is-invalid' if resource.errors[:email].any?}",
             placeholder: 'Email address', autofocus: true %>
           <%= label_tag "#{resource_name}[email]", 'Email address' %>

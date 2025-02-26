@@ -1,0 +1,57 @@
+<% url = @user.new_record? ? users_path : user_path(@user) %>
+
+<%= form_for(@user, url: url, html: { class: 'needs-validation', novalidate: true }) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul class="mb-0">
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :first_name, class: 'form-label' %>
+    <%= f.text_field :first_name, class: "form-control#{' is-invalid' if @user.errors[:first_name].any?}",
+      required: true %>
+    <% if @user.errors[:first_name].any? %>
+      <div class="invalid-feedback">
+        <%= @user.errors[:first_name].to_sentence %>
+      </div>
+    <% end %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :last_name, class: 'form-label' %>
+    <%= f.text_field :last_name, class: 'form-control', required: true %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :email, class: 'form-label' %>
+    <%= f.email_field :email, class: 'form-control', required: true %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :password, class: 'form-label' %>
+    <%= f.password_field :password, class: 'form-control', required: true %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :password_confirmation, class: 'form-label' %>
+    <%= f.password_field :password_confirmation, class: 'form-control', required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<div class="mb-3 d-flex justify-content-between">
+  <%= link_to 'Back', users_path, class: 'btn btn-secondary' %>
+  <% if @user.persisted? %>
+    <%= link_to 'View', user_path(@user), class: 'btn btn-info' %>
+
+    <%= link_to 'Delete', user_path(@user), method: :delete,
+      data: { confirm: 'Are you sure?', turbo_confirm: 'Are you sure?', turbo_method: :delete },
+      class: 'btn btn-danger' %>
+  <% end %>
+</div>
