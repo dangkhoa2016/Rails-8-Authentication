@@ -1,0 +1,24 @@
+
+<nav aria-label="breadcrumb" class='mb-4'>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= link_to root_path, class: 'link-body-emphasis border-bottom home' do %>
+        <i class='bi bi-house'></i>
+        <span class="visually-hidden">Home</span>
+      <% end %>
+    </li>
+
+    <% if breadcrumb_content %>
+      <li class="bi breadcrumb-item active" aria-current="page">
+        <%= breadcrumb_content %>
+      </li>
+    <% else %>
+      <li class="bi breadcrumb-item">
+        <%= link_to controller_name.titleize, breadcrumb_url, class: 'link-body-emphasis' %>
+      </li>
+      <li class="bi breadcrumb-item active" aria-current="page">
+        <%= controller.action_name.titleize %>
+      </li>
+    <% end %>
+  </ol>
+</nav>

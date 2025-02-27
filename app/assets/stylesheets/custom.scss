@@ -1,4 +1,12 @@
 .wrap-header-form.not-signed-in form input { min-width: 230px }
+.breadcrumb .home {
+  border-bottom-color: currentColor !important;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "\f138";
+  position: relative;
+  top: 5px;
+}
 
 @media (max-width: 991px) {
   .user-avatar {
