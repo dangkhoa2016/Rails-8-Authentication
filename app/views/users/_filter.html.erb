@@ -1,0 +1,20 @@
+
+<%= form_for(User, url: users_path, html: { class: "search-form mt-4" }, method: :get) do |f| %>
+  <div class="row">
+    <div class='col-md-8 mb-3'>
+    <%= label_tag "keyword", class: 'form-label' do %>
+      Keyword
+    <% end %>
+      <%= text_field_tag :keyword, params[:q], class: 'form-control', placeholder: 'Enter search keyword' %>
+    </div>
+
+    <div class='col-md-4 mb-3'>
+    <%= label_tag "role", class: 'form-label' do %>
+      Role
+    <% end %>
+      <%= select_tag :role, options_for_select(User.roles.keys.map { |role| [role.titleize, role] }, params[:role]), class: 'form-select' %>
+    </div>
+  </div>
+
+  <%= f.submit 'Search', class: 'btn btn-primary', name: nil %>
+<% end %>

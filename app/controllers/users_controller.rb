@@ -5,7 +5,16 @@ class UsersController < ApplicationController
   before_action :set_user, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @users = User.all
+    search_keyword = params[:keyword]
+    role = params[:role]
+    @users = User.where(%Q{
+          first_name LIKE lower(:keyword) OR 
+          last_name LIKE lower(:keyword) OR 
+          email LIKE lower(:keyword) OR 
+          username LIKE lower(:keyword)
+        }, keyword: "%#{search_keyword}%").
+      where(role: role).
+      order(:first_name, :last_name)
   end
 
   def create
@@ -39,13 +48,14 @@ class UsersController < ApplicationController
       @user.skip_email_changed_notification!
       @user.skip_reconfirmation!
     end
+    update_params.delete(:password) if update_params[:password].blank?
 
     if @user.update(update_params)
       redirect_to users_path, notice: "User [#{@user.full_name}] with Id: #{@user.id} has been updated successfully"
     else
       respond_to do |format|
         format.html { render :edit }
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(@user, partial: "users/form", locals: { user: @user }) }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("edit_user_#{@user.id}", partial: "users/form", locals: { user: @user }) }
       end
     end
   end
@@ -65,7 +75,14 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :username, :password, :date_of_birth, :role)
+    fields = params.require(:user).permit(:first_name, :last_name,
+      :email, :username, :password, :date_of_birth, :role)
+
+    if params.dig(:user, :allow_login).present?
+      fields[:locked_at] = Time.current
+    end
+
+    fields
   end
 
   def check_if_admin
