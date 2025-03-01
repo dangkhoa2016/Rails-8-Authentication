@@ -1,5 +1,13 @@
-<h1>Rails 8 Authentication</h1>
-<p>Welcome to the Rails 8 Authentication application.</p>
+<h1>Welcome Ruby on Rails, Devise, and Bootstrap 5!</h1>
+
+<div class='my-5'>
+  <p>
+    This project leverages the power of Ruby on Rails to deliver a robust and scalable web application. With Devise integrated for user authentication, you can securely sign up, log in, and manage your account. Devise ensures a seamless, safe experience by offering features like password recovery, session management, and user registration.
+  </p>
+  <p>
+    The user interface is styled using Bootstrap 5, which helps provide a clean, responsive, and modern design out-of-the-box. Whether you're on a desktop, tablet, or mobile device, our app adapts beautifully to different screen sizes.
+  </p>
+</div>
 
 <% if signed_in? && current_user.admin? %>
   <%= render 'home/dashboard' %>

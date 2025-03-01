@@ -1,2 +1,240 @@
-<h1>StaticPages#faqs</h1>
-<p>Find me in app/views/static_pages/faqs.html.erb</p>
+
+<%
+list_of_faqs_1 = [
+  {
+    q: "What's new in Rails version 8 ?",
+    a: [
+      "Rails 8 introduces several important updates to enhance performance, deployment, and security.",
+      "One of the major changes is the simplified deployment process with Kamal 2, allowing developers to deploy apps quickly with minimal configuration.",
+      "The framework also replaces the old Sprockets asset pipeline with Propshaft, a modern asset management system designed for better efficiency with JavaScript tools.",
+      "Rails 8 improves security by providing a built-in authentication system generator, making it easier to implement robust and secure user authentication.",
+      "The new Solid Adapters (Solid Cable, Solid Cache, and Solid Queue) replace third-party services, streamlining pub/sub, caching, and job queuing directly with SQLite for better scalability and performance.",
+      "These updates make Rails 8 more efficient, cost-effective, and user-friendly for developers, ensuring smoother workflows and faster app deployment."
+    ]
+  },
+  {
+    q: "What's the best way to learn Rails ?",
+    a: [
+      "The best way to learn Ruby on Rails is by starting with the official Rails guides, which provide a comprehensive, step-by-step introduction to the framework.",
+      "Begin by building simple applications, such as a blog or a to-do list, to get hands-on experience with Rails' conventions and structure.",
+      "Pair your learning with tutorials and online courses, such as those on platforms like Codecademy or Udemy, to get more interactive lessons.",
+      "It's also helpful to read the source code of open-source Rails projects on GitHub to understand how others structure their applications.",
+      "Practice is key—build as much as possible, break things, and learn from debugging errors.",
+      "Don't forget to leverage the Rails community for support; forums, Stack Overflow, and Slack channels are great places to ask questions and learn from others.",
+      "Lastly, focus on mastering Ruby, as a strong understanding of the language will make learning Rails much smoother."
+    ]
+  },
+  {
+    q: "What's the best way to deploy a Rails app ?",
+    a: [
+      "The best way to deploy a Rails app depends on your needs, but one of the most popular and reliable methods is using platforms like Render.com",
+      "Render.com offers a simple, platform-as-a-service solution that abstracts away many of the complexities of deployment.",
+      "For more control, you might opt for services like AWS, DigitalOcean, or Linode, where you can configure your own server environment.",
+      "Docker is also an excellent choice for containerizing your app, allowing for consistent environments across development and production.",
+      "For Rails apps, ensure you're using a production-ready database like PostgreSQL and configure it properly on your hosting platform.",
+      "Tools like Capistrano can automate the deployment process, making it easier to update your app.",
+      "Lastly, don't forget to set up proper monitoring, logging, and backups for your app's health and security once it's live."
+    ]
+  },
+  {
+    q: "What's the best way to test a Rails app ?",
+    a: [
+      "The best way to test a Rails app is to use a combination of unit tests, integration tests, and system tests to ensure full coverage.",
+      "Start with RSpec, a popular testing framework for Rails, which allows you to write expressive and readable tests.",
+      "Use FactoryBot to create test data and Capybara for simulating user interactions in integration and system tests.",
+      "Rails comes with built-in support for Minitest, which is also a good option for simpler test setups.",
+      "Test-Driven Development (TDD) is a recommended approach, where you write tests before implementing features, ensuring that your code is always tested.",
+      "Additionally, use Continuous Integration (CI) tools like CircleCI or GitHub Actions to automate your tests, ensuring they run on every code change.",
+      "Lastly, don't forget to test edge cases and handle scenarios like invalid inputs or failures to ensure your app is robust and error-resistant."
+    ]
+  },
+  {
+    q: "What's the best way to secure a Rails app ?",
+    a: [
+      "Securing a Rails app involves several key practices to protect against common vulnerabilities.",
+      "Start by using strong passwords and secure authentication mechanisms like Devise or the built-in Rails authentication system.",
+      "Implement authorization to control access to resources based on user roles and permissions.",
+      "Use HTTPS to encrypt data in transit and protect against Cross-Site Scripting (XSS) and Cross-Site Request Forgery (CSRF) attacks.",
+      "Sanitize user input to prevent SQL injection and other forms of injection attacks.",
+      "Regularly update your dependencies and Rails version to patch security vulnerabilities.",
+      "Implement security headers like Content Security Policy (CSP) to mitigate risks from malicious scripts.",
+      "Lastly, conduct regular security audits and penetration testing to identify and fix potential security flaws in your app."
+    ]
+  },
+]
+
+list_of_faqs_2 = [
+  {
+    q: "What's the best way to optimize a Rails app ?",
+    a: [
+      "Optimizing a Rails app involves improving performance, scalability, and efficiency to deliver a better user experience.",
+      "Start by profiling your app to identify bottlenecks and slow-performing areas using tools like Rack MiniProfiler or New Relic.",
+      "Optimize your database queries by using indexes, eager loading associations, and caching to reduce query times.",
+      "Leverage caching mechanisms like fragment caching, page caching, and HTTP caching to reduce load times and server requests.",
+      "Use background jobs for time-consuming tasks to keep your app fuild and scalable.",
+      "Implement lazy loading for assets and images to reduce initial page load times.",
+      "Consider using a Content Delivery Network (CDN) to cache static assets and improve load times for users worldwide.",
+      "Regularly monitor and tune your app's performance to ensure it meets user expectations and scales with increased traffic."
+    ]
+  },
+  {
+    q: "Best way to scale a Rails app ?",
+    a: [
+      "Scaling a Rails app involves optimizing performance, increasing capacity, and ensuring reliability as your user base grows.",
+      "Start by identifying performance bottlenecks and optimizing your app's code, database queries, and asset loading.",
+      "Use horizontal scaling by adding more servers to distribute the load and handle increased traffic.",
+      "Consider using a load balancer to evenly distribute requests across multiple servers for better performance.",
+      "Implement caching at various levels to reduce database queries and server load, improving response times.",
+      "Use a content delivery network (CDN) to cache static assets and reduce load times for users worldwide.",
+      "Consider using a microservices architecture to break down your app into smaller, more manageable services that can scale independently.",
+      "Regularly monitor your app's performance and scale based on user demand to ensure a seamless user experience."
+    ]
+  },
+  {
+    q: "How to troubleshoot a Rails app ?",
+    a: [
+      "Troubleshooting a Rails app involves identifying and fixing issues that affect its performance, functionality, or security.",
+      "Start by checking your logs for error messages, warnings, and other indicators of problems.",
+      "Use tools like Pry or Byebug to debug your code interactively and inspect variables and method calls.",
+      "Leverage Rails' built-in error pages and stack traces to identify the source of exceptions and errors.",
+      "Monitor your app's performance with tools like New Relic or Scout to identify bottlenecks and slow-performing areas.",
+      "Use Continuous Integration (CI) tools like CircleCI or GitHub Actions to automate your tests and catch errors early in the development process.",
+      "Regularly review your codebase for potential issues like code smells, duplication, or performance bottlenecks.",
+      "Lastly, don't hesitate to ask for help from the Rails community on forums, Slack channels, or Stack Overflow to get advice and solutions to your problems."
+    ]
+  },
+  {
+    q: "What's the best way to contribute to the Rails community ?",
+    a: [
+      "Contributing to the Rails community is a great way to give back, learn new skills, and help improve the framework for everyone.",
+      "Start by reading the Rails contributing guide to understand the process and guidelines for submitting contributions.",
+      "Look for open issues on the Rails GitHub repository labeled as ‘good first issue' or ‘help wanted' to find beginner-friendly tasks.",
+      "Contribute to the Rails documentation by fixing typos, adding examples, or improving existing content to help others learn the framework.",
+      "Write blog posts, tutorials, or screencasts about your experiences with Rails to share knowledge and best practices with the community.",
+      "Participate in Rails meetups, conferences, or online forums to connect with other developers and share ideas for improving the framework.",
+      "Join the Rails Core team or work on Rails-related projects to have a direct impact on the future of the framework.",
+      "Lastly, be patient, persistent, and open to feedback as you contribute to the Rails community, and remember that every contribution, big or small, makes a difference."
+    ]
+  },
+]
+
+main_qa = {
+  q: "How to set up User Authentication with Devise in a Rails",
+  a: [
+    "To set up user authentication with Devise in a Rails app, first, add the Devise gem to your Gemfile by including 'gem \"devise\"'.",
+    "Run 'bundle install' to install the gem and its dependencies.",
+    "Next, generate the Devise configuration files by running 'rails generate devise:install'.",
+    "Then, generate a User model by running 'rails generate devise User', which will create the necessary migration, model, and routes for user authentication.",
+    "Run 'rails db:migrate' to apply the migration and create the users table in your database.",
+    "After that, you can customize the User model to include additional fields, such as name or avatar, if needed.",
+    "To enable authentication in your app, use 'before_action :authenticate_user!' in controllers where you want to restrict access to authenticated users.",
+    "Finally, you can add Devise views by running 'rails generate devise:views' to allow users to sign up, log in, and manage their accounts."
+  ]
+}
+
+footer_qa = {
+  q: "What's the best way to stay up-to-date with Rails news and updates ?",
+  a: [
+    "Staying up-to-date with Rails news and updates is essential to keep your skills current and leverage the latest features and improvements.",
+    "Subscribe to the official Rails blog, mailing list, or Twitter account to receive announcements about new releases, security updates, and community events.",
+    "Follow Rails core team members, contributors, and popular Rails developers on social media platforms like Twitter to stay informed about the latest trends and best practices.",
+    "Join Rails-related Slack channels, forums, or mailing lists to engage with the community, ask questions, and share knowledge with other developers.",
+    "Attend Rails meetups, conferences, or webinars to learn from industry experts, network with other developers, and stay informed about the latest developments in the Rails ecosystem.",
+    "Read Rails-related books, blogs, and tutorials to deepen your understanding of the framework and learn new techniques for building better Rails applications.",
+    "Experiment with new features, gems, and tools in your projects to stay current with the evolving Rails ecosystem and continuously improve your skills as a developer.",
+    "Lastly, contribute to the Rails community by sharing your knowledge, experiences, and feedback to help others learn and grow with the framework."
+  ]
+}
+%>
+
+<h1>Frequently Asked Questions</h1>
+
+<div class="card border-success my-5">
+  <div class="card-header bg-transparent border-success"><%= main_qa[:q] %></div>
+  <div class="card-body">
+    <% main_qa[:a].each do |answer| %>
+      <p class="card-text"><%= answer %></p>
+    <% end %>
+  </div>
+</div>
+
+<div class='row'>
+  <div class='col-md-12'>
+    <p class='lead'>Below are some other frequently asked questions about Ruby on Rails. Click on a question to view the answer.</p>
+  </div>
+</div>
+
+<div class='row'>
+  <div class='col-md-4'>
+    <%= image_tag 'faqs1.svg', class: 'img-fuild' %>
+  </div>
+
+  <div class='col-md-8'>
+    <div class="accordion" id="faqs-accordion1">
+      <% list_of_faqs_1.each_with_index do |faq, index| %>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading-1-<%= index %>">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapse-1-<%= index %>"
+              aria-expanded="false"
+              aria-controls="collapse-1-<%= index %>">
+              <%= faq[:q] %>
+            </button>
+          </h2>
+          <div id="collapse-1-<%= index %>" class="accordion-collapse collapse"
+            aria-labelledby="heading-1-<%= index %>" data-bs-parent="#faqs-accordion1">
+            <div class="accordion-body">
+              <ul class='list-unstyled'>
+                <% faq[:a].each do |answer| %>
+                  <li><%= answer %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<div class='row my-4'>
+  <div class='col-md-8'>
+    <div class="accordion" id="faqs-accordion2">
+      <% list_of_faqs_2.each_with_index do |faq, index| %>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading-2-<%= index %>">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapse-2-<%= index %>"
+              aria-expanded="false"
+              aria-controls="collapse-2-<%= index %>">
+              <%= faq[:q] %>
+            </button>
+          </h2>
+          <div id="collapse-2-<%= index %>" class="accordion-collapse collapse"
+            aria-labelledby="heading-2-<%= index %>" data-bs-parent="#faqs-accordion2">
+            <div class="accordion-body">
+              <ul class='list-unstyled'>
+                <% faq[:a].each do |answer| %>
+                  <li><%= answer %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class='col-md-4'>
+    <%= image_tag 'faqs2.svg', class: 'my-4 img-fuild' %>
+  </div>
+</div>
+
+<div class="card border-warning">
+  <div class="card-header bg-transparent border-warning"><%= footer_qa[:q] %></div>
+  <div class="card-body">
+    <% footer_qa[:a].each do |answer| %>
+      <p class="card-text"><%= answer %></p>
+    <% end %>
+  </div>
+</div>
